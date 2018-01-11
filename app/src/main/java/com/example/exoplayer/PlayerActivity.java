@@ -18,6 +18,8 @@ package com.example.exoplayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -41,7 +43,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-public class PlayerActivity extends AppCompatActivity {
+public class PlayerActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private SimpleExoPlayer player;
@@ -49,6 +51,9 @@ public class PlayerActivity extends AppCompatActivity {
     private long playbackPosition;
     private int currentWindow;
     private boolean playWhenReady = true;
+    private Button playlistButton;
+    private Button hlsButton;
+    private Button dashButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,14 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
 
         playerView = findViewById(R.id.video_view);
+        hlsButton = findViewById(R.id.button_hls);
+        dashButton = findViewById(R.id.button_dash);
+        playlistButton = findViewById(R.id.button_playlist);
+
+        hlsButton.setOnClickListener(this);
+        dashButton.setOnClickListener(this);
+        playlistButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -104,10 +117,6 @@ public class PlayerActivity extends AppCompatActivity {
             player.setPlayWhenReady(playWhenReady);
             player.seekTo(currentWindow, playbackPosition);
         }
-
-        MediaSource mediaSource = buildHLSMediaSource(
-                Uri.parse(getString(R.string.media_url_hls)));
-        player.prepare(mediaSource, true, false);
     }
 
     private void releasePlayer() {
@@ -152,4 +161,24 @@ public class PlayerActivity extends AppCompatActivity {
         return new HlsMediaSource.Factory(hlsDataSourceFactory).createMediaSource(uri);
     }
 
+    private void play(MediaSource mediaSource) {
+        player.prepare(mediaSource, true, false);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_playlist:
+                MediaSource playlist = buildPlaylist(Uri.parse(getString(R.string.media_url_mp3)),
+                        Uri.parse(getString(R.string.media_url_mp4)));
+                play(playlist);
+                break;
+            case R.id.button_hls:
+                play(buildHLSMediaSource(Uri.parse(getString(R.string.media_url_hls))));
+                break;
+            case R.id.button_dash:
+                play(buildDashMediaSource(Uri.parse(getString(R.string.media_url_dash))));
+                break;
+        }
+    }
 }
