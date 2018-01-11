@@ -96,15 +96,17 @@ public class PlayerActivity extends AppCompatActivity {
                     .Factory(BANDWIDTH_METER);
 
             player = ExoPlayerFactory.newSimpleInstance(new DefaultRenderersFactory(this),
-                    new DefaultTrackSelector(adaptiveVideoTrackSelection), new DefaultLoadControl());
+                    new DefaultTrackSelector(adaptiveVideoTrackSelection),
+                    new DefaultLoadControl());
 
             playerView.setPlayer(player);
 
             player.setPlayWhenReady(playWhenReady);
             player.seekTo(currentWindow, playbackPosition);
         }
+
         MediaSource mediaSource = buildHLSMediaSource(
-                Uri.parse("https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8"));
+                Uri.parse(getString(R.string.media_url_hls)));
         player.prepare(mediaSource, true, false);
     }
 
