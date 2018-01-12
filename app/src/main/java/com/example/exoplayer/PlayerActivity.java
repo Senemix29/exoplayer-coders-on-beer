@@ -169,8 +169,10 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_playlist:
-                MediaSource playlist = buildPlaylist(Uri.parse(getString(R.string.media_url_mp3)),
-                        Uri.parse(getString(R.string.media_url_mp4)));
+                MediaSource playlist =
+                        buildPlaylist(Uri.parse(getString(R.string.media_url_mp4)),
+                                Uri.parse(getString(R.string.media_url_mp3)),
+                                Uri.parse(getString(R.string.media_url_mp3_surprised)));
                 play(playlist);
                 break;
             case R.id.button_hls:
