@@ -54,6 +54,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private Button playlistButton;
     private Button hlsButton;
     private Button dashButton;
+    private MediaSource currentMediaSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +117,10 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
             player.setPlayWhenReady(playWhenReady);
             player.seekTo(currentWindow, playbackPosition);
+
+            if (currentMediaSource != null) {
+                play(currentMediaSource);
+            }
         }
     }
 
@@ -162,6 +167,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void play(MediaSource mediaSource) {
+        currentMediaSource = mediaSource;
         player.prepare(mediaSource, true, false);
     }
 
