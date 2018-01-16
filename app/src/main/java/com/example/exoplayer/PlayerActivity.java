@@ -148,18 +148,21 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private MediaSource buildDashMediaSource(Uri uri) {
-        DataSource.Factory manifesDataSourceFactory = new DefaultHttpDataSourceFactory("ua");
+        DataSource.Factory manifestDataSourceFactory =
+                new DefaultHttpDataSourceFactory("exoplayer-codelab");
 
         DashChunkSource.Factory dashChunkSourceFactory =
-                new DefaultDashChunkSource.Factory(new DefaultHttpDataSourceFactory("ua",
-                        BANDWIDTH_METER));
+                new DefaultDashChunkSource.Factory(
+                        new DefaultHttpDataSourceFactory("exoplayer-codelab",
+                                BANDWIDTH_METER));
 
-        return new DashMediaSource.Factory(dashChunkSourceFactory, manifesDataSourceFactory)
+        return new DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory)
                 .createMediaSource(uri);
     }
 
     private MediaSource buildHLSMediaSource(Uri uri) {
-        DataSource.Factory dataSource = new DefaultHttpDataSourceFactory("ua");
+        DataSource.Factory dataSource =
+                new DefaultHttpDataSourceFactory("exoplayer-codelab");
 
         HlsDataSourceFactory hlsDataSourceFactory = new DefaultHlsDataSourceFactory(dataSource);
 
