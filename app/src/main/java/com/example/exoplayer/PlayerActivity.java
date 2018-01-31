@@ -171,7 +171,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     private void play(MediaSource mediaSource) {
         currentMediaSource = mediaSource;
-        player.prepare(mediaSource, true, false);
+        player.prepare(mediaSource);
     }
 
     @Override
