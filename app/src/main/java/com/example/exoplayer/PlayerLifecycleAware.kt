@@ -22,7 +22,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 
-class PlayerLifecycleAware(val lifecycle: Lifecycle, val context: Context,
+class PlayerLifecycleAware(lifecycle: Lifecycle, val context: Context,
                            val onPlayerInitializedListener: (p: SimpleExoPlayer?) -> Unit) : LifecycleObserver {
 
     private var playWhenReady = true
