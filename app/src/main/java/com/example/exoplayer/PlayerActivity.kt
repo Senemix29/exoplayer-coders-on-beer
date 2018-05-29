@@ -23,20 +23,14 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView
 
 class PlayerActivity : AppCompatActivity() {
-
-    private lateinit var playerView: SimpleExoPlayerView
-    private lateinit var playlistButton: Button
-    private lateinit var hlsButton: Button
-    private lateinit var dashButton: Button
+    private val playerView: SimpleExoPlayerView by lazy { findViewById<SimpleExoPlayerView>(R.id.video_view) }
+    private val playlistButton: Button by lazy { findViewById<Button>(R.id.button_playlist) }
+    private val hlsButton: Button by lazy { findViewById<Button>(R.id.button_hls) }
+    private val dashButton: Button by lazy { findViewById<Button>(R.id.button_dash) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-
-        playerView = findViewById(R.id.video_view)
-        hlsButton = findViewById(R.id.button_hls)
-        dashButton = findViewById(R.id.button_dash)
-        playlistButton = findViewById(R.id.button_playlist)
 
         val playerLifecycleAware = PlayerLifecycleAware(lifecycle, applicationContext) {
             initializedPlayer: SimpleExoPlayer? -> playerView.player = initializedPlayer
